@@ -1,4 +1,4 @@
-package br.com.thalitamartins.integracao.conta.Asaas.DTO;
+package br.com.thalitamartins.integracao.conta.Asaas.viewDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteDTO implements Serializable {
-
     private String name;
     private String cpfCnpj;
     private String email;
@@ -23,6 +22,7 @@ public class ClienteDTO implements Serializable {
     private String complement;
     private String province;
     private String postalCode;
+    private String city;
     private String externalReference;
     private String notificationDisabled;
     private String additionalEmails;
