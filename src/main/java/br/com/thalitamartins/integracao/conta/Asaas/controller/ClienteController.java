@@ -46,4 +46,14 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping(value = "/deletar/{id}")
+    public ResponseEntity deleteClienteId(@PathVariable("id") String id){
+        return clienteService.deleteClienteId(id);
+    }
+
+    @GetMapping(value = "/restaurar/{id}")
+    public ResponseEntity restaurarClienteId(@PathVariable("id") String id){
+        return clienteService.restaurarClienteId(id);
+    }
 }

@@ -17,8 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Service
 @Slf4j
@@ -99,6 +98,46 @@ public class ClientService {
 
             return responseEntity;
         } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Erro na requisição: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> deleteCliente(String id){
+        log.info("Deletando o cliente de id [{}]", id);
+        try{
+            String url = dominio + "/" + id;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("access_token", apiKey);
+            HttpEntity<?> requestEntity = new HttpEntity<>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<?> reponseEntity = restTemplate.exchange(url, DELETE, requestEntity, String.class);
+
+            return reponseEntity;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Erro na requisição: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> restaurarCliente(String id){
+        log.info("Restaurando o cadastro do cliente id [{}]", id);
+        try{
+            String url = dominio + "/" + id + "/restore";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("access_token", apiKey);
+            HttpEntity<?> requestEntity = new HttpEntity<>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<ClienteResponse> responseEntity = restTemplate.exchange(url, GET, requestEntity, ClienteResponse.class);
+
+            return responseEntity;
+        }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Erro na requisição: " + e.getMessage());
         }
